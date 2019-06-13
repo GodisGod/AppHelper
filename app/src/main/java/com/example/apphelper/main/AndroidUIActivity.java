@@ -1,14 +1,16 @@
-package com.example.apphelper;
+package com.example.apphelper.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.apphelper.R;
+
+public class AndroidUIActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_android_ui);
 
     }
 
