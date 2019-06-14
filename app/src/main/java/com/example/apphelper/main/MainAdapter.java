@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.apphelper.R;
 import com.example.apphelper.dialog.DialogActivity;
 import com.example.apphelper.utlis.ScreenUtils;
+import com.example.apphelper.wave.WaveActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         itemBeans = new ArrayList<>();
         itemBeans.add(new MainItemBean(R.drawable.android, "自定义View"));
         itemBeans.add(new MainItemBean(R.drawable.android, "Dialog动画"));
-        itemBeans.add(new MainItemBean(R.drawable.android, "android UI大全"));
+        itemBeans.add(new MainItemBean(R.drawable.android, "各种波动效果"));
         itemBeans.add(new MainItemBean(R.drawable.android, "android UI大全"));
         itemBeans.add(new MainItemBean(R.drawable.android, "android UI大全"));
         itemBeans.add(new MainItemBean(R.drawable.android, "android UI大全"));
@@ -70,6 +71,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                         break;
                     case 1:
                         context.startActivity(new Intent(context, DialogActivity.class));
+                        break;
+                    case 2:
+                        context.startActivity(new Intent(context, WaveActivity.class));
                         break;
                 }
             }

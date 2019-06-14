@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".dialog.DialogActivity"></activity>
+        <activity android:name=".wave.WaveActivity"></activity>
+        <activity android:name=".dialog.DialogActivity" />
         <activity android:name=".main.AndroidUIActivity" />
         <activity android:name=".main.MainActivity">
             <intent-filter>
