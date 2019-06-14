@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.apphelper.R;
+import com.example.apphelper.dialog.DialogActivity;
 import com.example.apphelper.utlis.ScreenUtils;
 
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         this.context = context;
         inflater = LayoutInflater.from(context);
         itemBeans = new ArrayList<>();
-        itemBeans.add(new MainItemBean(R.drawable.android, "android UI大全"));
-        itemBeans.add(new MainItemBean(R.drawable.android, "android UI大全"));
+        itemBeans.add(new MainItemBean(R.drawable.android, "自定义View"));
+        itemBeans.add(new MainItemBean(R.drawable.android, "Dialog动画"));
         itemBeans.add(new MainItemBean(R.drawable.android, "android UI大全"));
         itemBeans.add(new MainItemBean(R.drawable.android, "android UI大全"));
         itemBeans.add(new MainItemBean(R.drawable.android, "android UI大全"));
@@ -66,6 +67,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                 switch (i) {
                     case 0:
                         context.startActivity(new Intent(context, AndroidUIActivity.class));
+                        break;
+                    case 1:
+                        context.startActivity(new Intent(context, DialogActivity.class));
                         break;
                 }
             }
