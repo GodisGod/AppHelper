@@ -99,7 +99,20 @@ public class SongWave extends View {
         super.onDraw(canvas);
 
         for (int i = 0; i < totalDivide; i++) {
-            startX[i] = i * skip;
+            canvas.drawLine(startX[i], halfHeight - endY[i], startX[i], halfHeight + endY[i], paint);
+        }
+    }
+
+    public void setStartChange() {
+        startChange += Math.PI / 25;
+        caclue();
+        invalidate();
+    }
+
+    public void start() {
+        isRuning = true;
+        for (int i = 0; i < totalDivide; i++) {
+            startX[i] = (i + 1) * skip;
             radian = interval * i + startChange;//当前的弧，这样计算出来的波是均匀变化的
 //            int randomSkip = random.nextInt(12);
 //            radian = interval * randomSkip;
@@ -113,19 +126,6 @@ public class SongWave extends View {
             endY[i] = (int) Math.abs(amplitude * Math.sin(radian));
             Log.i("LHD", "LHD 计算的坐标 = x = " + startX[i] + "  y = " + endY[i]);
         }
-
-        for (int i = 0; i < totalDivide; i++) {
-            canvas.drawLine(startX[i], halfHeight - endY[i], startX[i], halfHeight + endY[i], paint);
-        }
-    }
-
-    public void setStartChange() {
-        startChange += Math.PI / 25;
-        invalidate();
-    }
-
-    public void start() {
-        isRuning = true;
         handler.post(runnable);
     }
 
@@ -133,6 +133,21 @@ public class SongWave extends View {
         startChange = 0;
         isRuning = false;
         handler.removeCallbacksAndMessages(null);
+        for (int i = 0; i < totalDivide; i++) {
+            startX[i] = (i + 1) * skip;
+            radian = interval * i + startChange;//当前的弧，这样计算出来的波是均匀变化的
+//            int randomSkip = random.nextInt(12);
+//            radian = interval * randomSkip;
+
+            if (radian == 0 || radian == Math.PI) {
+                radian = interval;//过滤到0的情况
+            }
+
+            Log.i("LHD", "当前的弧度 = " + radian);
+            //计算振幅
+            endY[i] = (int) Math.abs(amplitude * Math.sin(radian));
+            Log.i("LHD", "LHD 计算的坐标 = x = " + startX[i] + "  y = " + endY[i]);
+        }
         invalidate();
     }
 
@@ -140,5 +155,18 @@ public class SongWave extends View {
         return isRuning;
     }
 
+    private void caclue() {
+        for (int i = 0; i < totalDivide; i++) {
+            radian = interval * i + startChange;//当前的弧，这样计算出来的波是均匀变化的
+            if (radian == 0 || radian == Math.PI) {
+                radian = interval;//过滤到0的情况
+            }
+
+            Log.i("LHD", "当前的弧度 = " + radian);
+            //计算振幅
+            endY[i] = (int) Math.abs(amplitude * Math.sin(radian));
+            Log.i("LHD", "LHD 计算的坐标 = x = " + startX[i] + "  y = " + endY[i]);
+        }
+    }
 
 }

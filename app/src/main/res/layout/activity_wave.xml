@@ -24,11 +24,10 @@
 
     <com.example.apphelper.wave.SongWave2
         android:id="@+id/song_wave2"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="#0af" />
+        android:layout_marginTop="20dp" />
 
     <Button
         android:id="@+id/btn_start"

@@ -3,7 +3,9 @@ package com.example.apphelper.wave;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Shader;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.view.View;
 
 import com.example.apphelper.utlis.ScreenUtils;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -47,6 +50,9 @@ public class SongWave2 extends View {
 
     private boolean isRuning = false;
 
+    private int alpha = 25;
+    private LinearGradient[] gradients = new LinearGradient[totalDivide];
+
     public SongWave2(Context context) {
         this(context, null);
     }
@@ -82,7 +88,7 @@ public class SongWave2 extends View {
         Log.i("LHD", "view 的宽 = " + width + "  height = " + h + "   skip = " + skip);
 
         for (int i = 0; i < totalDivide; i++) {
-            startX[i] = i * skip;
+            startX[i] = i * skip + lineWidth / 2;
             radian = interval * i + startChange;//当前的弧，这样计算出来的波是均匀变化的
 
             if (radian == 0) {
@@ -93,6 +99,11 @@ public class SongWave2 extends View {
             //计算振幅
             endY[i] = (int) Math.abs(amplitude * Math.sin(radian));
             Log.i("LHD", "LHD 计算的坐标 = x = " + startX[i] + "  y = " + endY[i]);
+
+            LinearGradient gradient = new LinearGradient(startX[i], halfHeight - endY[i], startX[i], halfHeight + endY[i], new int[]{Color.parseColor("#17FFD5"),
+                    Color.parseColor("#17FFD5")}, null, Shader.TileMode.CLAMP);
+            gradients[i] = gradient;
+
         }
 
     }
@@ -106,13 +117,16 @@ public class SongWave2 extends View {
 
     private void init() {
         paint = new Paint();
-        paint.setColor(Color.BLACK);
+        //LinearGradient linearGradient = new LinearGradient(getWidth(),400,0,0,Color.RED,Color.GREEN, Shader.TileMode.CLAMP);
+
+        paint.setColor(Color.parseColor("#17FFD5"));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(lineWidth);
 
         paintCircle = new Paint();
-        paintCircle.setColor(Color.BLACK);
+        paintCircle.setColor(Color.parseColor("#17FFD5"));
         paintCircle.setStyle(Paint.Style.FILL);
+
 
     }
 
@@ -122,12 +136,17 @@ public class SongWave2 extends View {
 
 
         for (int i = 0; i < totalDivide; i++) {
+
+            paint.setShader(gradients[i]);
+
             canvas.drawLine(startX[i], halfHeight - endY[i], startX[i], halfHeight + endY[i], paint);
 
             canvas.drawCircle(startX[i], halfHeight - endY[i], radius, paintCircle);
             canvas.drawCircle(startX[i], halfHeight + endY[i], radius, paintCircle);
             if (i == totalDivide / 2) {
                 canvas.drawLine(startX[i], halfHeight - endY[i - 1], startX[i], halfHeight + endY[i - 1], paint);
+                canvas.drawCircle(startX[i], halfHeight - endY[i - 1], radius, paintCircle);
+                canvas.drawCircle(startX[i], halfHeight + endY[i - 1], radius, paintCircle);
             }
         }
 
@@ -138,7 +157,7 @@ public class SongWave2 extends View {
         startChange += Math.PI / 25;//每次更新每条线的弧度变化Math.PI / 30，这样做可以起到渐变的效果，不会让变化显得很突兀
 
         for (int i = 0; i < totalDivide; i++) {
-            radian = interval * i + startChange;//当前的弧，这样计算出来的波是均匀变化的
+            radian = interval * i + 1 + startChange;//当前的弧，这样计算出来的波是均匀变化的
 
             if (radian == 0) {
                 radian = interval;//过滤到0的情况
@@ -148,6 +167,15 @@ public class SongWave2 extends View {
             //计算振幅
             endY[i] = (int) Math.abs(amplitude * Math.sin(radian));
             Log.i("LHD", "LHD 计算的坐标 = x = " + startX[i] + "  y = " + endY[i]);
+
+            alpha -= 10;
+            if (alpha <= 122) {
+                alpha = 122;
+            }
+
+//            paint.setAlpha(alpha);
+//            paintCircle.setAlpha(alpha);
+
         }
 
         invalidate();
@@ -161,7 +189,25 @@ public class SongWave2 extends View {
     public void reset() {
         startChange = 0;
         isRuning = false;
+        alpha = 255;
+        paint.setAlpha(alpha);
+        paintCircle.setAlpha(alpha);
         handler.removeCallbacksAndMessages(null);
+
+        for (int i = 0; i < totalDivide; i++) {
+            startX[i] = i * skip + lineWidth / 2;
+            radian = interval * i + startChange;//当前的弧，这样计算出来的波是均匀变化的
+
+            if (radian == 0) {
+                radian = interval;//过滤到0的情况
+            }
+
+            Log.i("LHD", "当前的弧度 = " + radian);
+            //计算振幅
+            endY[i] = (int) Math.abs(amplitude * Math.sin(radian));
+            Log.i("LHD", "LHD 计算的坐标 = x = " + startX[i] + "  y = " + endY[i]);
+        }
+
         invalidate();
     }
 
