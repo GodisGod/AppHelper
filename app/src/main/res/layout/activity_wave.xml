@@ -43,4 +43,11 @@
         android:layout_marginTop="20dp"
         android:text="停止" />
 
+    <com.example.apphelper.wave.FingerWaveView
+        android:id="@+id/wave_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
+
 </LinearLayout>

@@ -12,7 +12,7 @@ public class WaveActivity extends AppCompatActivity {
 
     private SongWave songWave;
     private SongWave2 songWave2;
-
+    private FingerWaveView waveView;
     private Button btnStart;
     private Button btnStop;
 
@@ -24,7 +24,7 @@ public class WaveActivity extends AppCompatActivity {
         songWave2 = findViewById(R.id.song_wave2);
         btnStart = findViewById(R.id.btn_start);
         btnStop = findViewById(R.id.btn_reset);
-
+        waveView = findViewById(R.id.wave_view);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +35,7 @@ public class WaveActivity extends AppCompatActivity {
                 if (!songWave.isRuning()) {
                     songWave.start();
                 }
-
+                waveView.start();
             }
         });
         btnStop.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +43,7 @@ public class WaveActivity extends AppCompatActivity {
             public void onClick(View v) {
                 songWave.reset();
                 songWave2.reset();
+                waveView.stop();
             }
         });
 
