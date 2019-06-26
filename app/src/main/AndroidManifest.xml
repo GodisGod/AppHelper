@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.apphelper">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".wave.WaveActivity"></activity>
+        <activity android:name=".touch.TouchActivity"></activity>
+        <activity android:name=".wave.WaveActivity" />
         <activity android:name=".dialog.DialogActivity" />
         <activity android:name=".main.AndroidUIActivity" />
         <activity android:name=".main.MainActivity">

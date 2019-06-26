@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -61,6 +62,7 @@ public class VoiceLineView extends View {
 
     List<Path> paths = null;
 
+    private Path linearGradient;
     public VoiceLineView(Context context) {
         super(context);
     }
@@ -79,6 +81,9 @@ public class VoiceLineView extends View {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.voiceView);
         mode = typedArray.getInt(R.styleable.voiceView_viewMode, 0);
         voiceLineColor = typedArray.getColor(R.styleable.voiceView_voiceLine, Color.BLACK);
+
+//        linearGradient = new LinearGradient()
+
         maxVolume = typedArray.getFloat(R.styleable.voiceView_maxVolume, 100);
         sensibility = typedArray.getInt(R.styleable.voiceView_sensibility, 4);
         if (mode == RECT) {
@@ -125,6 +130,8 @@ public class VoiceLineView extends View {
         if (paintVoicLine == null) {
             paintVoicLine = new Paint();
             paintVoicLine.setColor(voiceLineColor);
+
+
             paintVoicLine.setAntiAlias(true);
             paintVoicLine.setStyle(Paint.Style.STROKE);
             paintVoicLine.setStrokeWidth(2);
